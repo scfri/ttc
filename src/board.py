@@ -21,9 +21,15 @@ class Board:
         return "current board"
 
     def print_board(self):
+        num = 0
+        print("  ", end="")
+        for i in range(0, len(self.board)):
+            print('{:^6}'.format(i), end="")
+        print("")
         for i in self.board:
-            print("|", end="")
+            print("%s|"%(num), end="")
+            num += 1
             for j in i:
-                print(" %s |" %(j), end="")
+                print('{:^5}'.format(str(j)), end="")
+                print("|", end="")
             print("")
-

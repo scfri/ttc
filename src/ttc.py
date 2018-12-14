@@ -1,9 +1,19 @@
+from board import *
 
-class TTC:
+class Ttc:
     """Tic-Tac-Toe game - main class"""
 
     def __init__(self):
-        return None
+        board = Board(3)
+        board.print_board()
+
+    def run_ttc(self):
+        # run game
+        pass
 
     def make_move():
         return "made a move"
+
+if __name__ == "__main__":
+    ttc = Ttc()
+    ttc.run_ttc()

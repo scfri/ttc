@@ -1,5 +1,4 @@
 
-
 class TTC:
     """Tic-Tac-Toe game - main class"""
 

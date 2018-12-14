@@ -1,5 +1,4 @@
 
-
 class Board:
     """Tic-Tac-Toe board to hold game - will only create square board"""
 
@@ -22,5 +21,9 @@ class Board:
         return "current board"
 
     def print_board(self):
-        print(self.board)
+        for i in self.board:
+            print("|", end="")
+            for j in i:
+                print(" %s |" %(j), end="")
+            print("")
 

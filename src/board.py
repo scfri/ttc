@@ -23,8 +23,8 @@ class Board:
     def print_board(self):
         num = 0
         print("  ", end="")
-        for i in range(0, len(self.board)):
-            print('{:^6}'.format(i), end="")
+        for letter in range(97, 97 + len(self.board)):
+            print('{:^6}'.format(chr(letter)), end="")
         print("")
         for i in self.board:
             print("%s|"%(num), end="")

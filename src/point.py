@@ -5,4 +5,4 @@ class Point(NamedTuple):
     y: int
 
     def __repr__(self):
-        return "str(self.x) + str(self.y)"
+        return str(self.x) + str(self.y)

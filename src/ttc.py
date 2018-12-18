@@ -2,6 +2,14 @@ from board import *
 from point import *
 
 
+def get_move(current_player):
+    """Get move from player"""
+    print("CURRENT PLAYER: %s" %(current_player))
+    x: str = input("Please enter x: ")
+    y: int = input("Please enter y: ")
+    return Point(x=x, y=y)
+
+
 class Ttc:
     """Tic-Tac-Toe game - main class"""
 
@@ -16,15 +24,8 @@ class Ttc:
 
         # while not self.winner:
         current_player = 1
-        point = self.get_move(current_player)
+        point = get_move(current_player)
         print(point)
-
-    def get_move(self, current_player):
-        """Get move from player"""
-        print("CURRENT PLAYER: %s" %(current_player))
-        x: str = input("Please enter x: ")
-        y: int = input("Please enter y: ")
-        return Point(x=x, y=y)
 
     def make_move():
         return "made a move"

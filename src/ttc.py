@@ -10,6 +10,13 @@ def get_move(current_player):
     return Point(x=x, y=y)
 
 
+def enum(**enums):
+    return type('Enum', (), enums)
+
+
+Player = enum(X='x', O='o')
+
+
 class Ttc:
     """Tic-Tac-Toe game - main class"""
 
@@ -23,7 +30,7 @@ class Ttc:
         self.board.print_board()
 
         # while not self.winner:
-        current_player = 1
+        current_player = Player.X
         point = get_move(current_player)
         print(point)
 

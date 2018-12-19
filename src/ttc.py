@@ -5,9 +5,9 @@ from point import *
 def get_move(current_player):
     """Get move from player"""
     print("CURRENT PLAYER: %s" %(current_player))
-    row: str = input("Please enter x: ")
-    column: int = input("Please enter y: ")
-    return Point(row=row, column=column)
+    column: str = input("Please enter column: ")
+    row: int = input("Please enter row: ")
+    return Point(column=column.lower(), row=row)
 
 
 class Ttc:

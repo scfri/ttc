@@ -30,7 +30,10 @@ class Board:
 
     def is_valid_move(self, point: Point):
         """determines if move is valid (i.e. there is no point on board yet)"""
-        pass
+        # get row
+        print(point.get_column())
+        # get column
+        # determine if that point == None
 
     def update_board(self, point: Point):
         """update board to reflect most recent move"""

@@ -26,6 +26,7 @@ class Ttc:
         # while not self.winner:
         point = get_move(self.get_current_player())
         print(point)
+        self.board.add_point_to_board(point)
 
     def make_move():
         return "made a move"
@@ -33,8 +34,7 @@ class Ttc:
     def get_current_player(self):
         if self.current_player:
             return "X"
-        else:
-            return "O"
+        return "O"
 
 if __name__ == "__main__":
     ttc = Ttc()

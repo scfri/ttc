@@ -10,9 +10,9 @@ class Board:
     def create_board(self):
         board = []
 
-        for row in range(0, self.size):
+        for _ in range(0, self.size):
             tmp = []
-            for col in range(0, self.size):
+            for _ in range(0, self.size):
                 tmp.append(None)
             board.append(tmp)
 

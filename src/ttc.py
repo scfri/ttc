@@ -1,11 +1,10 @@
 from board import *
 from point import *
-from players import *
 
 
-def get_move(players):
+def get_move(current_player):
     """Get move from player"""
-    print("CURRENT PLAYER: %s" %(players.get_current_player()))
+    print("CURRENT PLAYER: %s" %(current_player))
     row: str = input("Please enter x: ")
     column: int = input("Please enter y: ")
     return Point(row=row, column=column)
@@ -25,14 +24,17 @@ class Ttc:
         self.board.print_board()
 
         # while not self.winner:
-        point = get_move(self.players)
+        point = get_move(self.get_current_player())
         print(point)
 
     def make_move():
         return "made a move"
 
-    def get_players(self):
-        return self.players
+    def get_current_player(self):
+        if self.current_player:
+            return "X"
+        else:
+            return "O"
 
 if __name__ == "__main__":
     ttc = Ttc()

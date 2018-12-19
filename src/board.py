@@ -1,5 +1,6 @@
 from point import *
 
+
 class Board:
     """Tic-Tac-Toe board to hold game - will only create square board"""
 

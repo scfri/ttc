@@ -1,20 +1,14 @@
 from board import *
 from point import *
+from players import *
 
 
-def get_move(current_player):
+def get_move(players):
     """Get move from player"""
-    print("CURRENT PLAYER: %s" %(current_player))
-    x: str = input("Please enter x: ")
-    y: int = input("Please enter y: ")
-    return Point(x=x, y=y)
-
-
-def enum(**enums):
-    return type('Enum', (), enums)
-
-
-Player = enum(X='x', O='o')
+    print("CURRENT PLAYER: %s" %(players.get_current_player()))
+    row: str = input("Please enter x: ")
+    column: int = input("Please enter y: ")
+    return Point(row=row, column=column)
 
 
 class Ttc:
@@ -23,6 +17,7 @@ class Ttc:
     def __init__(self):
         self.board = Board(3)
         self.winner = False
+        self.current_player = True # TODO: figure out current player situation
         self.run_ttc()
 
     def run_ttc(self):
@@ -30,12 +25,14 @@ class Ttc:
         self.board.print_board()
 
         # while not self.winner:
-        current_player = Player.X
-        point = get_move(current_player)
+        point = get_move(self.players)
         print(point)
 
     def make_move():
         return "made a move"
+
+    def get_players(self):
+        return self.players
 
 if __name__ == "__main__":
     ttc = Ttc()

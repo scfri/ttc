@@ -5,8 +5,13 @@ from point import *
 def get_move(current_player):
     """Get move from player"""
     print("CURRENT PLAYER: %s" %(current_player))
-    column: str = input("Please enter column: ")
-    row: int = input("Please enter row: ")
+    move: str = input("Please enter move <column><row>: ")
+    # column: str = input("Please enter column: ")
+    # row: int = input("Please enter row: ")
+    column: str = move[0]
+    row: int = move[1]
+    print("column: %s" %(column))
+    print("row: %s" %(row))
     return Point(column=column.lower(), row=row)
 
 
@@ -26,8 +31,9 @@ class Ttc:
         # while not self.winner:
         for i in range(0, 3):
             point = get_move(self.get_current_player())
-            self.board.add_point_to_board(point, self.get_current_player())
-            self.current_player = not self.current_player
+            valid = self.board.add_point_to_board(point, self.get_current_player())
+            if valid:
+                self.current_player = not self.current_player
 
     def get_current_player(self) -> str:
         """Returns current player -- either 'X' or 'O'"""

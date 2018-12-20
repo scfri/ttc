@@ -21,14 +21,15 @@ class Board:
 
         return board
 
-    def add_point_to_board(self, point: Point, player: str):
+    def add_point_to_board(self, point: Point, player: str) -> bool:
         """Add specified point to board"""
 
         if self.is_valid_move(point):
             self.update_board(point, player)
+            return True
         else:
-            # TODO: what to do on invalid move??
             print("Invalid move! Please try again...")
+            return False
 
     def is_valid_move(self, point: Point) -> bool:
         """determines if move is valid (i.e. there is no point on board yet)"""

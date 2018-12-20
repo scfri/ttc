@@ -11,9 +11,9 @@ class Point(NamedTuple):
     def get_column(self) -> int:
         """Returns column number - 0 indexed"""
 
-        return ord(self.column) - 97 # TOOD: will this return correct column?
+        return ord(self.column) - 97 
 
     def get_row(self) -> int:
-        """Returns row number - 0 indexed"""
+        """Returns row number - visual board is 1 indexed, so converts to 0-index"""
 
-        return int(self.row)
+        return int(self.row)-1

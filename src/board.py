@@ -38,7 +38,6 @@ class Board:
         move_row = point.get_row()
         try:
             if self.get_point_on_board(move_column, move_row) is None:
-                print("Valid move!")
                 return True
             return False
         except IndexError:

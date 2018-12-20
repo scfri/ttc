@@ -21,11 +21,11 @@ class Board:
 
         return board
 
-    def add_point_to_board(self, point: Point):
+    def add_point_to_board(self, point: Point, player: str):
         """Add specified point to board"""
 
         if self.is_valid_move(point):
-            self.update_board(point)
+            self.update_board(point, player)
         else:
             # move is invalid, prompt again
             print("Invalid move!")
@@ -48,15 +48,11 @@ class Board:
 
         print(self.board[row][column])
 
-    def update_board(self, point: Point):
+    def update_board(self, point: Point, player: str):
         """update board to reflect most recent move"""
 
-        pass
-
-    def get_current_board(self):
-        """return the current board"""
-
-        return self.board
+        self.board[point.get_row()][point.get_column()] = player
+        self.print_board()
 
     def print_board(self):
         """Print the current board"""

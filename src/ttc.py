@@ -26,12 +26,11 @@ class Ttc:
         # while not self.winner:
         point = get_move(self.get_current_player())
         print(point)
-        self.board.add_point_to_board(point)
+        self.board.add_point_to_board(point, self.get_current_player())
 
-    def make_move():
-        return "made a move"
+    def get_current_player(self) -> str:
+        """Returns current player -- either 'X' or 'O'"""
 
-    def get_current_player(self):
         if self.current_player:
             return "X"
         return "O"

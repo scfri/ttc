@@ -27,18 +27,21 @@ class Board:
         if self.is_valid_move(point):
             self.update_board(point, player)
         else:
-            # move is invalid, prompt again
-            print("Invalid move!")
+            # TODO: what to do on invalid move??
+            print("Invalid move! Please try again...")
 
     def is_valid_move(self, point: Point) -> bool:
         """determines if move is valid (i.e. there is no point on board yet)"""
 
         move_column = point.get_column()
         move_row = point.get_row()
-        if self.get_point_on_board(move_column, move_row) is None:
-            print("Valid move!")
-            return True
-        return False
+        try:
+            if self.get_point_on_board(move_column, move_row) is None:
+                print("Valid move!")
+                return True
+            return False
+        except IndexError:
+            return False
 
     def get_point_on_board(self, column: int, row: int) -> bool:
         """Determine if board is "None" at given row and column"""

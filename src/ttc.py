@@ -26,7 +26,6 @@ class Ttc:
         # while not self.winner:
         for i in range(0, 3):
             point = get_move(self.get_current_player())
-            print(point)
             self.board.add_point_to_board(point, self.get_current_player())
             self.current_player = not self.current_player
 

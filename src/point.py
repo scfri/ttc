@@ -9,11 +9,11 @@ class Point(NamedTuple):
         return str(self.column) + str(self.row)
 
     def get_column(self) -> int:
-        """Returns column number"""
+        """Returns column number - 0 indexed"""
 
         return ord(self.column) - 97 # TOOD: will this return correct column?
 
     def get_row(self) -> int:
-        """Returns row number"""
+        """Returns row number - 0 indexed"""
 
         return int(self.row)

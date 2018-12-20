@@ -9,6 +9,8 @@ class Board:
         self.board = self.create_board()
 
     def create_board(self):
+        """Create the initial board, using size given by the user"""
+
         board = []
 
         for _ in range(0, self.size):
@@ -23,8 +25,6 @@ class Board:
         """Add specified point to board"""
 
         if self.is_valid_move(point):
-            # if move is valid
-            # update board
             self.update_board(point)
         else:
             # move is invalid, prompt again
@@ -36,6 +36,7 @@ class Board:
         move_column = point.get_column()
         move_row = point.get_row()
         if self.get_point_on_board(move_column, move_row) is None:
+            print("Valid move!")
             return True
         return False
 
@@ -49,13 +50,17 @@ class Board:
 
     def update_board(self, point: Point):
         """update board to reflect most recent move"""
+
         pass
 
     def get_current_board(self):
-        return "current board"
+        """return the current board"""
+
+        return self.board
 
     def print_board(self):
         """Print the current board"""
+
         num = 0
         print("  ", end="")
         for letter in range(97, 97 + len(self.board)):

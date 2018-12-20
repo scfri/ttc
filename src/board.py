@@ -67,7 +67,7 @@ class Board:
             print('{:^6}'.format(chr(letter)), end="")
         print("")
         for i in self.board:
-            print("%s|"%(num), end="")
+            print("%s|"%(num+1), end="")
             num += 1
             for j in i:
                 print('{:^5}'.format(str(j)), end="")

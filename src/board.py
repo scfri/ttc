@@ -57,10 +57,17 @@ class Board:
         self.board[point.get_row()][point.get_column()] = player
         self.print_board()
 
+    def check_winner(self) -> bool:
+        """Check if last move created a winner!"""
+
+        # TODO: determine if there is a winner
+        return False
+
     def print_board(self):
         """Print the current board"""
 
         num = 0
+        print()
         print("  ", end="")
         for letter in range(97, 97 + len(self.board)):
             print('{:^6}'.format(chr(letter)), end="")
@@ -72,3 +79,4 @@ class Board:
                 print('{:^5}'.format(str(j)), end="")
                 print("|", end="")
             print("")
+        print()

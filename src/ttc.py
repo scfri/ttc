@@ -89,19 +89,9 @@ class Board:
         move_column = point.get_column()
         move_row = point.get_row()
         try:
-            if self.get_point_on_board(move_column, move_row) is None:
-                return True
-            return False
+            return point_is_none(self.board, move_column, move_row)
         except IndexError:
             return False
-
-    def get_point_on_board(self, column: int, row: int) -> bool:
-        """Determine if board is "None" at given row and column"""
-
-        print(type(row))
-        print(type(column))
-
-        print(self.board[row][column])
 
     def update_board(self, point: Point, player: str):
         """update board to reflect most recent move"""
@@ -112,9 +102,11 @@ class Board:
     def check_winner(self) -> bool:
         """Check if last move created a winner!"""
 
-        # for row in self.board:
-        #     if row[0] == row[1] == row[2]:
-        #         return True
+        for row in self.board:
+            if row[0] == row[1] == row[2] and row[0] is not None:
+                return True
+        # TODO: check for vertical winner
+        # TODO: check for horizontal winner
         return False
 
     def print_board(self):
@@ -140,7 +132,7 @@ def get_move(current_player):
     """Get move from player"""
 
     # TODO: need to check user input
-    print("URRENT PLAYER: %s" %(current_player))
+    print("CURRENT PLAYER: %s" %(current_player))
     move: str = input("Please enter move <column><row>: ")
     try:
         column: str = move[0]
@@ -149,6 +141,15 @@ def get_move(current_player):
         print("Invalid move! Please try again...")
         return None
     return Point(column=column.lower(), row=row)
+
+
+def point_is_none(board, column: int, row: int) -> bool:
+    """Determine if board is "None" at given row and column"""
+
+    if board[row][column] == None:
+        print("self.board[row][column] == None")
+        return True
+    return False
 
 
 if __name__ == "__main__":

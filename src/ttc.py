@@ -106,7 +106,7 @@ class Board:
             if row[0] == row[1] == row[2] and row[0] is not None:
                 return True
         # TODO: check for vertical winner
-        # TODO: check for horizontal winner
+        # TODO: check for diagonal winner
         return False
 
     def print_board(self):

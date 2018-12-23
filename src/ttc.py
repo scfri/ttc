@@ -26,8 +26,8 @@ class Ttc:
 
     def __init__(self):
         self.board = Board(3)
-        self.winner = False
         self.current_player = True
+        self.num_valid_moves = 0
         self.run_ttc()
 
     def run_ttc(self):
@@ -35,19 +35,23 @@ class Ttc:
 
         self.board.print_board()
 
-        while True:
+        while self.num_valid_moves < 9:
             point = get_move(self.get_current_player())
             if point is not None:
                 valid = self.board.is_valid_move(point)
                 if valid:
-                    current_player = self.get_current_player()
-                    self.board.update_board(point, current_player)
+                    # TODO: make this "AI"
+                    self.num_valid_moves += 1
+                    print(self.num_valid_moves)
+                    c_player = self.get_current_player()
+                    self.board.update_board(point, c_player)
                     if self.board.check_winner():
                         print("YOU ARE THE WINNER!!!")
                         break
                     self.current_player = not self.current_player
                 else:
                     print("Invalid move! Please try again...")
+        print("It's a DRAW!!!")
 
     def get_current_player(self) -> str:
         """Returns current player -- either 'X' or 'O'"""

@@ -29,6 +29,7 @@ class Ttc:
         self.board = Board(3)
         self.current_player = True # TODO: determine what value user wants to be
         self.num_valid_moves = 0
+        self.opponet = AImee("O")
         self.run_ttc()
 
     def run_ttc(self):
@@ -38,7 +39,10 @@ class Ttc:
 
         while self.num_valid_moves < 9:
             # TODO: make this "AI"
-            point = get_move(self.get_current_player())
+            if current_player:
+                point = get_move(self.get_current_player())
+            else:
+                point = self.ai.get_move()
             if point is not None:
                 valid = self.board.is_valid_move(point)
                 if valid:
@@ -76,8 +80,14 @@ class AImee:
     def get_move(self) -> point:
         """get AImee to return a move"""
 
-        # TODO: add method
-        pass
+        # TODO: get random move
+        try:
+            column: str = move[0]
+            row: int = move[1]
+        except (IndexError, ValueError):
+            print("Invalid move! Please try again...")
+            return None
+        return Point(column=column.lower(), row=row)
 
 class Board:
     """Tic-Tac-Toe board to hold game - will only create square board"""

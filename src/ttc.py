@@ -3,6 +3,7 @@ from typing import NamedTuple
 
 class Point(NamedTuple):
     """To store point of next move"""
+
     column: str
     row: int
 
@@ -26,24 +27,27 @@ class Ttc:
     def __init__(self):
         self.board = Board(3)
         self.winner = False
-        self.current_player = True # TODO: figure out current player situation
+        self.current_player = True
         self.run_ttc()
 
     def run_ttc(self):
         """run TTC game"""
+
         self.board.print_board()
 
-        # TODO: while true; or, take size of board == max num moves (e.g. 3*3 = 9)
-        for i in range(0, 6):
+        while True:
             point = get_move(self.get_current_player())
             if point is not None:
-                valid = self.board.add_point_to_board(point, self.get_current_player())
+                valid = self.board.is_valid_move(point)
                 if valid:
-                    winner = self.board.check_winner()
-                    if winner:
+                    current_player = self.get_current_player()
+                    self.board.update_board(point, current_player)
+                    if self.board.check_winner():
                         print("YOU ARE THE WINNER!!!")
                         break
                     self.current_player = not self.current_player
+                else:
+                    print("Invalid move! Please try again...")
 
     def get_current_player(self) -> str:
         """Returns current player -- either 'X' or 'O'"""
@@ -73,24 +77,14 @@ class Board:
 
         return board
 
-    def add_point_to_board(self, point: Point, player: str) -> bool:
-        """Add specified point to board"""
-
-        if self.is_valid_move(point):
-            self.update_board(point, player)
-            return True
-        else:
-            print("Invalid move! Please try again...")
-            return False
-
     def is_valid_move(self, point: Point) -> bool:
         """determines if move is valid (i.e. there is no point on board yet)"""
 
-        move_column = point.get_column()
-        move_row = point.get_row()
         try:
+            move_column = point.get_column()
+            move_row = point.get_row()
             return point_is_none(self.board, move_column, move_row)
-        except IndexError:
+        except (IndexError, ValueError):
             return False
 
     def update_board(self, point: Point, player: str):
@@ -164,13 +158,12 @@ class Board:
 def get_move(current_player):
     """Get move from player"""
 
-    # TODO: need to check user input
     print("CURRENT PLAYER: %s" %(current_player))
     move: str = input("Please enter move <column><row>: ")
     try:
         column: str = move[0]
         row: int = move[1]
-    except IndexError:
+    except (IndexError, ValueError):
         print("Invalid move! Please try again...")
         return None
     return Point(column=column.lower(), row=row)

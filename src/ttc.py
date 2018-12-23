@@ -1,3 +1,4 @@
+import random
 from typing import NamedTuple
 
 
@@ -26,7 +27,7 @@ class Ttc:
 
     def __init__(self):
         self.board = Board(3)
-        self.current_player = True
+        self.current_player = True # TODO: determine what value user wants to be
         self.num_valid_moves = 0
         self.run_ttc()
 
@@ -36,11 +37,11 @@ class Ttc:
         self.board.print_board()
 
         while self.num_valid_moves < 9:
+            # TODO: make this "AI"
             point = get_move(self.get_current_player())
             if point is not None:
                 valid = self.board.is_valid_move(point)
                 if valid:
-                    # TODO: make this "AI"
                     self.num_valid_moves += 1
                     print(self.num_valid_moves)
                     c_player = self.get_current_player()
@@ -61,10 +62,27 @@ class Ttc:
         return 'O'
 
 
+class AImee:
+    """(AI)mee is the AI class you will play againstQ"""
+
+    def __init__(self, player: str):
+        self.player = player
+
+    def get_player(self) -> str:
+        """returns player representaion (i.e. X or O)"""
+
+        return self.player
+
+    def get_move(self) -> point:
+        """get AImee to return a move"""
+
+        # TODO: add method
+        pass
+
 class Board:
     """Tic-Tac-Toe board to hold game - will only create square board"""
 
-    def __init__(self, size):
+    def __init__(self, size: int):
         self.size = size
         self.board = self.create_board()
 

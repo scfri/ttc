@@ -102,11 +102,44 @@ class Board:
     def check_winner(self) -> bool:
         """Check if last move created a winner!"""
 
+        is_winner = False
+
+        is_winner |= self.check_horizontal_winner()
+        is_winner |= self.check_vertical_winner()
+        is_winner |= self.check_diagonal_winner()
+
+        return is_winner
+
+    def check_horizontal_winner(self) -> bool:
+        """checks for horizontal winner"""
+
         for row in self.board:
             if row[0] == row[1] == row[2] and row[0] is not None:
                 return True
-        # TODO: check for vertical winner
-        # TODO: check for diagonal winner
+        return False
+
+    def check_vertical_winner(self) -> bool:
+        """checks for vertial winner"""
+
+        for column in range(0, self.size):
+            """
+            board[0][0] == board[0][1] == board[0][2]
+            """
+            b = self.board
+            if b[0][column] == b[1][column] == b[2][column] and b[0][column] is not None:
+                return True
+        return False
+
+
+    def check_diagonal_winner(self) -> bool:
+        """checks for diagonal winner"""
+
+        mid = self.board[1][1]
+        if mid is not None:
+            if self.board[0][0] == mid == self.board[2][2]:
+                return True
+            if self.board[2][0] == mid == self.board[0][2]:
+                return True
         return False
 
     def print_board(self):

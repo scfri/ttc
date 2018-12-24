@@ -1,6 +1,8 @@
 import random
 from typing import NamedTuple
 
+BOARD_SIZE = 3
+
 
 class Point(NamedTuple):
     """To store point of next move"""
@@ -26,10 +28,11 @@ class Ttc:
     """Tic-Tac-Toe game - main class"""
 
     def __init__(self):
-        self.board = Board(3)
-        self.current_player = True # TODO: determine what value user wants to be
+        self.board = Board(BOARD_SIZE)
+        self.current_player_is_user = True # TODO: determine what value user wants to be
         self.num_valid_moves = 0
-        self.opponet = AImee("O")
+        self.opponent = AImee("O")
+        self.is_winner = False
         self.run_ttc()
 
     def run_ttc(self):
@@ -38,11 +41,10 @@ class Ttc:
         self.board.print_board()
 
         while self.num_valid_moves < 9:
-            # TODO: make this "AI"
-            if current_player:
+            if self.current_player_is_user:
                 point = get_move(self.get_current_player())
             else:
-                point = self.ai.get_move()
+                point = self.opponent.get_move()
             if point is not None:
                 valid = self.board.is_valid_move(point)
                 if valid:
@@ -51,17 +53,23 @@ class Ttc:
                     c_player = self.get_current_player()
                     self.board.update_board(point, c_player)
                     if self.board.check_winner():
-                        print("YOU ARE THE WINNER!!!")
+                        self.is_winner = True
+                        if self.current_player_is_user:
+                            print("YOU ARE THE WINNER!!!")
+                        else:
+                            print("AImee is the winner!")
                         break
-                    self.current_player = not self.current_player
+                    self.current_player_is_user = not self.current_player_is_user
                 else:
-                    print("Invalid move! Please try again...")
-        print("It's a DRAW!!!")
+                    if self.current_player_is_user:
+                        print("Invalid move! Please try again...")
+        if not self.is_winner:
+            print("It's a DRAW!!!")
 
     def get_current_player(self) -> str:
         """Returns current player -- either 'X' or 'O'"""
 
-        if self.current_player:
+        if self.current_player_is_user:
             return 'X'
         return 'O'
 
@@ -77,16 +85,11 @@ class AImee:
 
         return self.player
 
-    def get_move(self) -> point:
+    def get_move(self) -> Point:
         """get AImee to return a move"""
 
-        # TODO: get random move
-        try:
-            column: str = move[0]
-            row: int = move[1]
-        except (IndexError, ValueError):
-            print("Invalid move! Please try again...")
-            return None
+        column = chr(random.randint(0, BOARD_SIZE) + 96)
+        row = random.randint(0, BOARD_SIZE)
         return Point(column=column.lower(), row=row)
 
 class Board:

@@ -44,7 +44,7 @@ class Ttc:
             if self.current_player_is_user:
                 point = get_move(self.get_current_player())
             else:
-                point = self.opponent.get_move()
+                point = self.opponent.get_move(self.board)
             if point is not None:
                 valid = self.board.is_valid_move(point)
                 if valid:
@@ -77,6 +77,8 @@ class Ttc:
 class AImee:
     """(AI)mee is the AI class you will play againstQ"""
 
+    # TODO: make her intelligent
+
     def __init__(self, player: str):
         self.player = player
 
@@ -85,12 +87,47 @@ class AImee:
 
         return self.player
 
-    def get_move(self) -> Point:
+    def get_move(self, board) -> Point:
         """get AImee to return a move"""
+
+        winning_move = find_winning_move(board)
 
         column = chr(random.randint(0, BOARD_SIZE) + 96)
         row = random.randint(0, BOARD_SIZE)
         return Point(column=column.lower(), row=row)
+
+    def find_winning_move(board) -> Point:
+        """Find a winning move, if there is one"""
+
+        horizontal_winner = find_horizontal_winner(board)
+        vertical_winner = find_vertical_winner(board)
+        diagonal_winner = find_diagonal_winner(board)
+
+        if horizontal_winner is not None:
+            return horizontal_winner
+        elif vertical_winner is not None:
+            return vertical_winner
+        elif diagonal_winner is not None:
+            return diagonal_winner
+        else:
+            return None
+
+        pass
+
+    def find_horizontal_winner(board) -> Point:
+        """Find horizontal winner"""
+
+        pass
+
+    def find_vertical_winner(board) -> Point:
+        """Find vertical winner"""
+
+        pass
+
+    def find_diagonal_winner(board) -> Point:
+        """Find diagonal winner"""
+
+        pass
 
 class Board:
     """Tic-Tac-Toe board to hold game - will only create square board"""

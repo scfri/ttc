@@ -1,6 +1,7 @@
 import random
 from typing import NamedTuple
 
+
 BOARD_SIZE = 3
 
 
@@ -24,54 +25,48 @@ class Point(NamedTuple):
         return int(self.row)-1
 
 
-class Ttc:
-    """Tic-Tac-Toe game - main class"""
+def run_ttc():
+    """run TTC game"""
 
-    def __init__(self):
-        self.board = Board(BOARD_SIZE)
-        self.current_player_is_user = True # TODO: determine what value user wants to be
-        self.num_valid_moves = 0
-        self.opponent = AImee("O")
-        self.is_winner = False
-        self.run_ttc()
+    board = create_board(BOARD_SIZE)
+    current_player_is_user = True #TODO: determine what value user wants to be
+    num_valid_moves = 0
+    opponent = AImee("O")
+    is_winner = False
 
-    def run_ttc(self):
-        """run TTC game"""
+    print_board(board)
 
-        self.board.print_board()
-
-        while self.num_valid_moves < 9:
-            if self.current_player_is_user:
-                point = get_move(self.get_current_player())
-            else:
-                point = self.opponent.get_move(self.board)
-            if point is not None:
-                valid = self.board.is_valid_move(point)
-                if valid:
-                    self.num_valid_moves += 1
-                    print(self.num_valid_moves)
-                    c_player = self.get_current_player()
-                    self.board.update_board(point, c_player)
-                    if self.board.check_winner():
-                        self.is_winner = True
-                        if self.current_player_is_user:
-                            print("YOU ARE THE WINNER!!!")
-                        else:
-                            print("AImee is the winner!")
-                        break
-                    self.current_player_is_user = not self.current_player_is_user
-                else:
-                    if self.current_player_is_user:
-                        print("Invalid move! Please try again...")
-        if not self.is_winner:
-            print("It's a DRAW!!!")
-
-    def get_current_player(self) -> str:
+    def get_current_player() -> str:
         """Returns current player -- either 'X' or 'O'"""
 
-        if self.current_player_is_user:
+        if current_player_is_user:
             return 'X'
         return 'O'
+
+    while num_valid_moves < 9:
+        if current_player_is_user:
+            point = get_move(get_current_player())
+        else:
+            point = opponent.get_move(board)
+        if point is not None:
+            valid = is_valid_move(board, point)
+            if valid:
+                num_valid_moves += 1
+                c_player = get_current_player()
+                update_board(board, point, c_player)
+                if check_winner(board):
+                    is_winner = True
+                    if current_player_is_user:
+                        print("YOU ARE THE WINNER!!!")
+                    else:
+                        print("AImee is the winner!")
+                    break
+                current_player_is_user = not current_player_is_user
+            else:
+                if current_player_is_user:
+                    print("Invalid move! Please try again...")
+    if not is_winner:
+        print("It's a DRAW!!!")
 
 
 class AImee:
@@ -129,102 +124,102 @@ class AImee:
 
         pass
 
-class Board:
-    """Tic-Tac-Toe board to hold game - will only create square board"""
 
-    def __init__(self, size: int):
-        self.size = size
-        self.board = self.create_board()
+def create_board(size):
+    """Create the initial board, using size given by the user"""
 
-    def create_board(self):
-        """Create the initial board, using size given by the user"""
+    board = []
 
-        board = []
+    for _ in range(0, size):
+        tmp = []
+        for _ in range(0, size):
+            tmp.append(None)
+        board.append(tmp)
 
-        for _ in range(0, self.size):
-            tmp = []
-            for _ in range(0, self.size):
-                tmp.append(None)
-            board.append(tmp)
+    return board
 
-        return board
 
-    def is_valid_move(self, point: Point) -> bool:
-        """determines if move is valid (i.e. there is no point on board yet)"""
+def is_valid_move(board, point: Point) -> bool:
+    """determines if move is valid (i.e. there is no point on board yet)"""
 
-        try:
-            move_column = point.get_column()
-            move_row = point.get_row()
-            return point_is_none(self.board, move_column, move_row)
-        except (IndexError, ValueError):
-            return False
-
-    def update_board(self, point: Point, player: str):
-        """update board to reflect most recent move"""
-
-        self.board[point.get_row()][point.get_column()] = player
-        self.print_board()
-
-    def check_winner(self) -> bool:
-        """Check if last move created a winner!"""
-
-        is_winner = False
-
-        is_winner |= self.check_horizontal_winner()
-        is_winner |= self.check_vertical_winner()
-        is_winner |= self.check_diagonal_winner()
-
-        return is_winner
-
-    def check_horizontal_winner(self) -> bool:
-        """checks for horizontal winner"""
-
-        for row in self.board:
-            if row[0] == row[1] == row[2] and row[0] is not None:
-                return True
-        return False
-
-    def check_vertical_winner(self) -> bool:
-        """checks for vertial winner"""
-
-        for column in range(0, self.size):
-            """
-            board[0][0] == board[0][1] == board[0][2]
-            """
-            b = self.board
-            if b[0][column] == b[1][column] == b[2][column] and b[0][column] is not None:
-                return True
+    try:
+        move_column = point.get_column()
+        move_row = point.get_row()
+        return point_is_none(board, move_column, move_row)
+    except (IndexError, ValueError):
         return False
 
 
-    def check_diagonal_winner(self) -> bool:
-        """checks for diagonal winner"""
+def update_board(board, point: Point, player: str):
+    """update board to reflect most recent move"""
 
-        mid = self.board[1][1]
-        if mid is not None:
-            if self.board[0][0] == mid == self.board[2][2]:
-                return True
-            if self.board[2][0] == mid == self.board[0][2]:
-                return True
-        return False
+    board[point.get_row()][point.get_column()] = player
+    print_board(board)
 
-    def print_board(self):
-        """Print the current board"""
 
-        num = 0
-        print()
-        print("  ", end="")
-        for letter in range(97, 97 + len(self.board)):
-            print('{:^6}'.format(chr(letter)), end="")
+def check_horizontal_winner(board) -> bool:
+    """checks for horizontal winner"""
+
+    for row in board:
+        if row[0] == row[1] == row[2] and row[0] is not None:
+            return True
+    return False
+
+
+def check_vertical_winner(board) -> bool:
+    """checks for vertial winner"""
+
+    for column in range(0, BOARD_SIZE):
+        """
+        board[0][0] == board[0][1] == board[0][2]
+        """
+        if board[0][column] == board[1][column] == board[2][column] and board[0][column] is not None:
+            return True
+    return False
+
+
+def check_diagonal_winner(board) -> bool:
+    """checks for diagonal winner"""
+
+    mid = board[1][1]
+    if mid is not None:
+        if board[0][0] == mid == board[2][2]:
+            return True
+        if board[2][0] == mid == board[0][2]:
+            return True
+    return False
+
+
+def check_winner(board) -> bool:
+    """Check if last move created a winner!"""
+
+
+    is_winner = False
+
+    is_winner |= check_horizontal_winner(board)
+    is_winner |= check_vertical_winner(board)
+    is_winner |= check_diagonal_winner(board)
+
+    return is_winner
+
+
+def print_board(board):
+    """Print the current board"""
+
+    num = 0
+    print()
+    print("  ", end="")
+    for letter in range(97, 97 + len(board)):
+        print('{:^6}'.format(chr(letter)), end="")
+    print("")
+    for i in board:
+        print("%s|"%(num+1), end="")
+        num += 1
+        for j in i:
+            print('{:^5}'.format(str(j)), end="")
+            print("|", end="")
         print("")
-        for i in self.board:
-            print("%s|"%(num+1), end="")
-            num += 1
-            for j in i:
-                print('{:^5}'.format(str(j)), end="")
-                print("|", end="")
-            print("")
-        print()
+    print()
 
 
 def get_move(current_player):
@@ -245,11 +240,10 @@ def point_is_none(board, column: int, row: int) -> bool:
     """Determine if board is "None" at given row and column"""
 
     if board[row][column] == None:
-        print("self.board[row][column] == None")
         return True
     return False
 
 
 if __name__ == "__main__":
-    ttc = Ttc()
+    run_ttc()
 

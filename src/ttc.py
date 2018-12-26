@@ -90,18 +90,18 @@ class AImee:
     def get_move(self, board) -> Point:
         """get AImee to return a move"""
 
-        winning_move = find_winning_move(board)
+        # winning_move = self.find_winning_move(board)
 
         column = chr(random.randint(0, BOARD_SIZE) + 96)
         row = random.randint(0, BOARD_SIZE)
         return Point(column=column.lower(), row=row)
 
-    def find_winning_move(board) -> Point:
+    def find_winning_move(self, board) -> Point:
         """Find a winning move, if there is one"""
 
-        horizontal_winner = find_horizontal_winner(board)
-        vertical_winner = find_vertical_winner(board)
-        diagonal_winner = find_diagonal_winner(board)
+        horizontal_winner = self.find_horizontal_winner(board)
+        vertical_winner = self.find_vertical_winner(board)
+        diagonal_winner = self.find_diagonal_winner(board)
 
         if horizontal_winner is not None:
             return horizontal_winner
@@ -114,17 +114,17 @@ class AImee:
 
         pass
 
-    def find_horizontal_winner(board) -> Point:
+    def find_horizontal_winner(self, board) -> Point:
         """Find horizontal winner"""
 
         pass
 
-    def find_vertical_winner(board) -> Point:
+    def find_vertical_winner(self, board) -> Point:
         """Find vertical winner"""
 
         pass
 
-    def find_diagonal_winner(board) -> Point:
+    def find_diagonal_winner(self, board) -> Point:
         """Find diagonal winner"""
 
         pass

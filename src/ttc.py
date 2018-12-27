@@ -25,50 +25,6 @@ class Point(NamedTuple):
         return int(self.row)-1
 
 
-def run_ttc():
-    """run TTC game"""
-
-    board = create_board(BOARD_SIZE)
-    current_player_is_user = True #TODO: determine what value user wants to be
-    num_valid_moves = 0
-    opponent = AImee("O")
-    is_winner = False
-
-    print_board(board)
-
-    def get_current_player() -> str:
-        """Returns current player -- either 'X' or 'O'"""
-
-        if current_player_is_user:
-            return 'X'
-        return 'O'
-
-    while num_valid_moves < 9:
-        if current_player_is_user:
-            point = get_move(get_current_player())
-        else:
-            point = opponent.get_move(board)
-        if point is not None:
-            valid = is_valid_move(board, point)
-            if valid:
-                num_valid_moves += 1
-                c_player = get_current_player()
-                update_board(board, point, c_player)
-                if check_winner(board):
-                    is_winner = True
-                    if current_player_is_user:
-                        print("YOU ARE THE WINNER!!!")
-                    else:
-                        print("AImee is the winner!")
-                    break
-                current_player_is_user = not current_player_is_user
-            else:
-                if current_player_is_user:
-                    print("Invalid move! Please try again...")
-    if not is_winner:
-        print("It's a DRAW!!!")
-
-
 class AImee:
     """(AI)mee is the AI class you will play againstQ"""
 
@@ -123,6 +79,50 @@ class AImee:
         """Find diagonal winner"""
 
         pass
+
+
+def run_ttc():
+    """run TTC game"""
+
+    board = create_board(BOARD_SIZE)
+    current_player_is_user = True #TODO: determine what value user wants to be
+    num_valid_moves = 0
+    opponent = AImee("O")
+    is_winner = False
+
+    print_board(board)
+
+    def get_current_player() -> str:
+        """Returns current player -- either 'X' or 'O'"""
+
+        if current_player_is_user:
+            return 'X'
+        return 'O'
+
+    while num_valid_moves < 9:
+        if current_player_is_user:
+            point = get_move(get_current_player())
+        else:
+            point = opponent.get_move(board)
+        if point is not None:
+            valid = is_valid_move(board, point)
+            if valid:
+                num_valid_moves += 1
+                c_player = get_current_player()
+                update_board(board, point, c_player)
+                if check_winner(board):
+                    is_winner = True
+                    if current_player_is_user:
+                        print("YOU ARE THE WINNER!!!")
+                    else:
+                        print("AImee is the winner!")
+                    break
+                current_player_is_user = not current_player_is_user
+            else:
+                if current_player_is_user:
+                    print("Invalid move! Please try again...")
+    if not is_winner:
+        print("It's a DRAW!!!")
 
 
 def create_board(size):

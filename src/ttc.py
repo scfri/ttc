@@ -1,3 +1,5 @@
+"""Simple Tic Tac Toe game written, its called Ttc!"""
+
 import random
 from typing import NamedTuple
 
@@ -63,23 +65,40 @@ class AImee:
         else:
             return None
 
+<<<<<<< Updated upstream
         pass
 
     def find_horizontal_winner(self, board) -> Point:
         """Find horizontal winner"""
 
         pass
+=======
+def find_horizontal_winner(board) -> Point:
+    """Find horizontal winner"""
+>>>>>>> Stashed changes
 
-    def find_vertical_winner(self, board) -> Point:
-        """Find vertical winner"""
+    for i, row in enumerate(board):
+        if row[0] == row[1] == 'O' and row[2] is None:
+            print("found winner -- %s, 2" %(i))
+            return Point(column='c', row=i)
+        if row[1] == row[2] == 'O' and row[0] is None:
+            print("found winner -- %s, 0" %(i))
+            return Point(column='a', row=i)
+        if row[0] == row[2] == 'O' and row[1] is None:
+            print("found winner -- %s, 1" %(i))
+            return Point(column='b', row=i)
+    print("did not find horizontal winner")
+    return None
 
-        pass
+def find_vertical_winner(board) -> Point:
+    """Find vertical winner"""
 
-    def find_diagonal_winner(self, board) -> Point:
-        """Find diagonal winner"""
+    pass
 
-        pass
+def find_diagonal_winner(board) -> Point:
+    """Find diagonal winner"""
 
+    pass
 
 def run_ttc():
     """run TTC game"""

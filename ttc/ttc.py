@@ -2,7 +2,6 @@
 
 import random
 from typing import NamedTuple
-from tests import *
 
 
 BOARD_SIZE = 3

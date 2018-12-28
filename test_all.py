@@ -1,7 +1,7 @@
 """Test suite for Ttc"""
 
 
-from ttc.ttc import AImee
+from ttc.ttc import *
 
 
 def test_find_horizontal_winner():

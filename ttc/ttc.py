@@ -32,13 +32,13 @@ class Aimee:
 
     # TODO: make her intelligent
 
-    def __init__(self, player: str):
-        self.player = player
+    def __init__(self, player_id: str):
+        self.player_id = player_id
 
-    def get_player(self) -> str:
+    def get_player_id(self) -> str:
         """returns player representaion (i.e. X or O)"""
 
-        return self.player
+        return self.player_id
 
     def get_move(self, board) -> Point:
         """get Aimee to return a move"""
@@ -52,9 +52,9 @@ class Aimee:
     def find_winning_move(self, board) -> Point:
         """Find a winning move, if there is one"""
 
-        horizontal_winner = find_horizontal_winner(board)
-        # vertical_winner = find_vertical_winner(board)
-        # diagonal_winner = find_diagonal_winner(board)
+        horizontal_winner = self.find_horizontal_winner(board)
+        # vertical_winner = self.find_vertical_winner(board)
+        # diagonal_winner = self.find_diagonal_winner(board)
 
         if horizontal_winner is not None:
             return horizontal_winner
@@ -67,33 +67,30 @@ class Aimee:
     def find_horizontal_winner(self, board) -> Point:
         """Find horizontal winner"""
 
+        player_id = self.get_player_id()
+
+        for i, row in enumerate(board):
+            if row[0] == row[1] == player_id and row[2] is None:
+                print("found winner -- %s, 2" %(i))
+                return Point(column='c', row=i)
+            if row[1] == row[2] == player_id and row[0] is None:
+                print("found winner -- %s, 0" %(i))
+                return Point(column='a', row=i)
+            if row[0] == row[2] == player_id and row[1] is None:
+                print("found winner -- %s, 1" %(i))
+                return Point(column='b', row=i)
+        print("did not find horizontal winner")
+        return None
+
+    def find_vertical_winner(self, board) -> Point:
+        """Find vertical winner"""
+
         pass
 
-def find_horizontal_winner(board) -> Point:
-    """Find horizontal winner"""
+    def find_diagonal_winner(self, board) -> Point:
+        """Find diagonal winner"""
 
-    for i, row in enumerate(board):
-        if row[0] == row[1] == 'O' and row[2] is None:
-            print("found winner -- %s, 2" %(i))
-            return Point(column='c', row=i)
-        if row[1] == row[2] == 'O' and row[0] is None:
-            print("found winner -- %s, 0" %(i))
-            return Point(column='a', row=i)
-        if row[0] == row[2] == 'O' and row[1] is None:
-            print("found winner -- %s, 1" %(i))
-            return Point(column='b', row=i)
-    print("did not find horizontal winner")
-    return None
-
-def find_vertical_winner(board) -> Point:
-    """Find vertical winner"""
-
-    pass
-
-def find_diagonal_winner(board) -> Point:
-    """Find diagonal winner"""
-
-    pass
+        pass
 
 def run_ttc():
     """run TTC game"""

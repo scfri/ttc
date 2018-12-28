@@ -1,6 +1,8 @@
 """Test suite for Ttc"""
 
-from ttc import *
+
+from ttc.ttc import AImee
+
 
 def test_find_horizontal_winner():
     """test horizontal winner"""
@@ -9,4 +11,4 @@ def test_find_horizontal_winner():
     board.append([None, None, None])
     board.append([None, None, None])
 
-    assert find_horizontal_winner(board) == 
+    assert find_horizontal_winner(board) == Point(column='c', row=0)

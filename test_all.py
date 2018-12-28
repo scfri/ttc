@@ -31,6 +31,27 @@ def test_find_horizontal_winner():
     assert find_horizontal_winner(no_solution_board) is None
 
 
+def test_find_winning_move():
+    """Test Aimee find_winning_move method"""
+
+    aimee = Aimee('O')
+
+    # test if solution
+    solution_board = []
+    solution_board.append(['O', 'O', None])
+    solution_board.append([None, None, None])
+    solution_board.append([None, None, None])
+
+    assert aimee.find_winning_move(solution_board) == Point(column='c', row=0)
+
+    # test if no solution
+    no_solution_board = []
+    no_solution_board.append([None, None, None])
+    no_solution_board.append([None, None, None])
+    no_solution_board.append([None, None, None])
+    assert aimee.find_winning_move(no_solution_board) is None
+
+
 def test_aimee_player():
     """Make sure AImee knows correct player"""
 

@@ -52,30 +52,25 @@ class AImee:
     def find_winning_move(self, board) -> Point:
         """Find a winning move, if there is one"""
 
-        horizontal_winner = self.find_horizontal_winner(board)
-        vertical_winner = self.find_vertical_winner(board)
-        diagonal_winner = self.find_diagonal_winner(board)
+        horizontal_winner = find_horizontal_winner(board)
+        # vertical_winner = find_vertical_winner(board)
+        # diagonal_winner = find_diagonal_winner(board)
 
         if horizontal_winner is not None:
             return horizontal_winner
-        elif vertical_winner is not None:
-            return vertical_winner
-        elif diagonal_winner is not None:
-            return diagonal_winner
-        else:
-            return None
-
-<<<<<<< Updated upstream
-        pass
+        # elif vertical_winner is not None:
+            # return vertical_winner
+        # elif diagonal_winner is not None:
+            # return diagonal_winner
+        return None
 
     def find_horizontal_winner(self, board) -> Point:
         """Find horizontal winner"""
 
         pass
-=======
+
 def find_horizontal_winner(board) -> Point:
     """Find horizontal winner"""
->>>>>>> Stashed changes
 
     for i, row in enumerate(board):
         if row[0] == row[1] == 'O' and row[2] is None:
@@ -258,11 +253,10 @@ def get_move(current_player):
 def point_is_none(board, column: int, row: int) -> bool:
     """Determine if board is "None" at given row and column"""
 
-    if board[row][column] == None:
+    if board[row][column] is None:
         return True
     return False
 
 
 if __name__ == "__main__":
     run_ttc()
-

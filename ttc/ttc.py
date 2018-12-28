@@ -27,7 +27,7 @@ class Point(NamedTuple):
         return int(self.row)-1
 
 
-class AImee:
+class Aimee:
     """(AI)mee is the AI class you will play againstQ"""
 
     # TODO: make her intelligent
@@ -41,7 +41,7 @@ class AImee:
         return self.player
 
     def get_move(self, board) -> Point:
-        """get AImee to return a move"""
+        """get Aimee to return a move"""
 
         # winning_move = self.find_winning_move(board)
 
@@ -101,7 +101,7 @@ def run_ttc():
     board = create_board(BOARD_SIZE)
     current_player_is_user = True #TODO: determine what value user wants to be
     num_valid_moves = 0
-    opponent = AImee("O")
+    opponent = Aimee("O")
     is_winner = False
 
     print_board(board)
@@ -129,7 +129,7 @@ def run_ttc():
                     if current_player_is_user:
                         print("YOU ARE THE WINNER!!!")
                     else:
-                        print("AImee is the winner!")
+                        print("Aimee is the winner!")
                     break
                 current_player_is_user = not current_player_is_user
             else:
@@ -144,13 +144,16 @@ def create_board(size):
 
     board = []
 
-    for _ in range(0, size):
-        tmp = []
+    try:
         for _ in range(0, size):
-            tmp.append(None)
-        board.append(tmp)
+            tmp = []
+            for _ in range(0, size):
+                tmp.append(None)
+            board.append(tmp)
 
-    return board
+        return board
+    except TypeError:
+        print("Invalid board size given")
 
 
 def is_valid_move(board, point: Point) -> bool:

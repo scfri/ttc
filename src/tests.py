@@ -9,4 +9,4 @@ def test_find_horizontal_winner():
     board.append([None, None, None])
     board.append([None, None, None])
 
-    assert find_hori
+    assert find_horizontal_winner(board) == 

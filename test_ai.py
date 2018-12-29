@@ -1,16 +1,6 @@
-"""Test suite for Ttc"""
-
+"""Aimee test suite"""
 
 from ttc.ttc import *
-
-
-def test_board_size():
-    """test board size is correct"""
-
-    # test if valid board size
-    board = create_board(3)
-    assert len(board) == 3
-
 
 def test_find_horizontal_winner():
     """test find_horizontal_winner"""
@@ -186,6 +176,32 @@ def test_find_winning_move():
 
 def test_get_vertical_winner():
     """test aimee vertical winner"""
+
+    aimee = Aimee('X')
+
+    # test if solution in 1,1
+    solution_board = []
+    solution_board.append([None, None, None])
+    solution_board.append(['X', None, None])
+    solution_board.append(['X', None, None])
+
+    assert aimee.find_vertical_winner(solution_board) == Point(column='a', row=1)
+
+    # test if solution in 1,2
+    solution_board = []
+    solution_board.append(['X', None, None])
+    solution_board.append([None, None, None])
+    solution_board.append(['X', None, None])
+
+    assert aimee.find_vertical_winner(solution_board) == Point(column='a', row=2)
+
+    # test if solution in 1,3
+    solution_board = []
+    solution_board.append(['X', None, None])
+    solution_board.append(['X', None, None])
+    solution_board.append([None, None, None])
+
+    assert aimee.find_vertical_winner(solution_board) == Point(column='a', row=3)
 
 
 def test_get_move():

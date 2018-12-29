@@ -59,15 +59,15 @@ class Aimee:
         """Find a winning move, if there is one"""
 
         horizontal_winner = self.find_horizontal_winner(board)
-        # vertical_winner = self.find_vertical_winner(board)
-        # diagonal_winner = self.find_diagonal_winner(board)
+        vertical_winner = self.find_vertical_winner(board)
+        diagonal_winner = self.find_diagonal_winner(board)
 
         if horizontal_winner is not None:
             return horizontal_winner
-        # elif vertical_winner is not None:
-            # return vertical_winner
-        # elif diagonal_winner is not None:
-            # return diagonal_winner
+        elif vertical_winner is not None:
+            return vertical_winner
+        elif diagonal_winner is not None:
+            return diagonal_winner
         return None
 
     def find_horizontal_winner(self, board) -> Point:
@@ -77,25 +77,33 @@ class Aimee:
 
         for i, row in enumerate(board):
             if row[0] == row[1] == player_id and row[2] is None:
-                # print("found winner -- %s, 2" %(i))
                 return Point(column='c', row=i+1)
             if row[1] == row[2] == player_id and row[0] is None:
-                # print("found winner -- %s, 0" %(i))
                 return Point(column='a', row=i+1)
             if row[0] == row[2] == player_id and row[1] is None:
-                # print("found winner -- %s, 1" %(i))
                 return Point(column='b', row=i+1)
         return None
 
     def find_vertical_winner(self, board) -> Point:
         """Find vertical winner"""
 
-        pass
+        player_id = self.get_player_id()
+
+        # Range through columns
+        for i in range(0, BOARD_SIZE):
+            if board[0][i] == board[1][i] == player_id and board[2][i] is None:
+                return Point(column=chr(97+i), row=3)
+            if board[1][i] == board[2][i] == player_id and board[0][i] is None:
+                return Point(column=chr(97+i), row=1)
+            if board[0][i] == board[2][i] == player_id and board[1][i] is None:
+                return Point(column=chr(97+i), row=2)
+        return None
 
     def find_diagonal_winner(self, board) -> Point:
         """Find diagonal winner"""
 
-        pass
+        return None
+
 
 def run_ttc():
     """run TTC game"""

@@ -204,6 +204,12 @@ def test_get_vertical_winner():
     assert aimee.find_vertical_winner(solution_board) == Point(column='a', row=3)
 
 
+def test_find_diagonal_winner():
+    """Test to find diagonal winner"""
+
+    pass
+
+
 def test_get_move():
     """Test if aimee.get_move() alwayas returns a Point"""
 

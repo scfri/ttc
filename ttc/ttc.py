@@ -43,7 +43,6 @@ class Aimee:
     def get_move(self, board) -> Point:
         """get Aimee to return a move"""
 
-        # TODO: this is creating loop
         winning_move = self.find_winning_move(board)
 
         print(winning_move)
@@ -75,6 +74,7 @@ class Aimee:
 
         player_id = self.get_player_id()
 
+        # TODO: make this work for diff board sizes
         for i, row in enumerate(board):
             if row[0] == row[1] == player_id and row[2] is None:
                 return Point(column='c', row=i+1)
@@ -89,7 +89,7 @@ class Aimee:
 
         player_id = self.get_player_id()
 
-        # Range through columns
+        # TODO: make this work for diff board sizes
         for i in range(0, BOARD_SIZE):
             if board[0][i] == board[1][i] == player_id and board[2][i] is None:
                 return Point(column=chr(97+i), row=3)
@@ -102,6 +102,14 @@ class Aimee:
     def find_diagonal_winner(self, board) -> Point:
         """Find diagonal winner"""
 
+        player_id = self.get_player_id()
+
+        """
+        board[0][0] == board[1][1] == board[2][2]
+        board[0][2] == board[1][1] == board[0][3]
+        """
+
+        # TODO: dynamically search for diagonal winner
         return None
 
 
@@ -109,7 +117,8 @@ def run_ttc():
     """run TTC game"""
 
     board = create_board(BOARD_SIZE)
-    current_player_is_user = True #TODO: determine what value user wants to be
+    #TODO: dynamically determine what value user wants to be
+    current_player_is_user = True
     num_valid_moves = 0
     opponent = Aimee("O")
     is_winner = False

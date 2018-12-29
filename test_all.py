@@ -184,6 +184,18 @@ def test_find_winning_move():
     assert aimee.find_winning_move(no_solution_board) is None
 
 
+def test_get_move():
+    """Test if aimee.get_move() alwayas returns a Point"""
+
+    aimee = Aimee('O')
+
+    board = []
+    board.append([None, None, None])
+    board.append([None, None, None])
+    board.append(['O', 'O', None])
+
+    assert aimee.get_move is not None
+
 
 def test_aimee_player():
     """Make sure AImee knows correct player"""

@@ -46,10 +46,12 @@ class Aimee:
         # TODO: this is creating loop
         winning_move = self.find_winning_move(board)
 
+        print(winning_move)
+
         if winning_move is None:
             column = chr(random.randint(0, BOARD_SIZE) + 96)
             row = random.randint(0, BOARD_SIZE)
-            winning_move = Point(column=column.lower(), row=row)
+            return Point(column=column.lower(), row=row)
 
         return winning_move
 
@@ -75,15 +77,14 @@ class Aimee:
 
         for i, row in enumerate(board):
             if row[0] == row[1] == player_id and row[2] is None:
-                print("found winner -- %s, 2" %(i))
-                return Point(column='c', row=i)
+                # print("found winner -- %s, 2" %(i))
+                return Point(column='c', row=i+1)
             if row[1] == row[2] == player_id and row[0] is None:
-                print("found winner -- %s, 0" %(i))
-                return Point(column='a', row=i)
+                # print("found winner -- %s, 0" %(i))
+                return Point(column='a', row=i+1)
             if row[0] == row[2] == player_id and row[1] is None:
-                print("found winner -- %s, 1" %(i))
-                return Point(column='b', row=i)
-        print("did not find horizontal winner")
+                # print("found winner -- %s, 1" %(i))
+                return Point(column='b', row=i+1)
         return None
 
     def find_vertical_winner(self, board) -> Point:
@@ -165,6 +166,7 @@ def is_valid_move(board, point: Point) -> bool:
         move_row = point.get_row()
         return point_is_none(board, move_column, move_row)
     except (IndexError, ValueError):
+        print("%s is invalid move" %(point))
         return False
 
 

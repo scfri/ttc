@@ -43,11 +43,15 @@ class Aimee:
     def get_move(self, board) -> Point:
         """get Aimee to return a move"""
 
-        # winning_move = self.find_winning_move(board)
+        # TODO: this is creating loop
+        winning_move = self.find_winning_move(board)
 
-        column = chr(random.randint(0, BOARD_SIZE) + 96)
-        row = random.randint(0, BOARD_SIZE)
-        return Point(column=column.lower(), row=row)
+        if winning_move is None:
+            column = chr(random.randint(0, BOARD_SIZE) + 96)
+            row = random.randint(0, BOARD_SIZE)
+            winning_move = Point(column=column.lower(), row=row)
+
+        return winning_move
 
     def find_winning_move(self, board) -> Point:
         """Find a winning move, if there is one"""

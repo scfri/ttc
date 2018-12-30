@@ -63,9 +63,9 @@ class Aimee:
 
         if horizontal_winner is not None:
             return horizontal_winner
-        elif vertical_winner is not None:
+        if vertical_winner is not None:
             return vertical_winner
-        elif diagonal_winner is not None:
+        if diagonal_winner is not None:
             return diagonal_winner
         return None
 
@@ -213,9 +213,6 @@ def check_vertical_winner(board) -> bool:
     """checks for vertial winner"""
 
     for column in range(0, BOARD_SIZE):
-        """
-        board[0][0] == board[0][1] == board[0][2]
-        """
         if board[0][column] == board[1][column] == board[2][column] and board[0][column] is not None:
             return True
     return False
@@ -235,7 +232,6 @@ def check_diagonal_winner(board) -> bool:
 
 def check_winner(board) -> bool:
     """Check if last move created a winner!"""
-
 
     is_winner = False
 

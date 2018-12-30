@@ -215,7 +215,7 @@ def test_find_diagonal_winner():
     solution_board.append([None, 'O', None])
     solution_board.append([None, None, 'O'])
 
-    assert aimee.find_horizontal_winner(solution_board) == Point(column='a', row=1)
+    assert aimee.find_diagonal_winner(solution_board) == Point(column='a', row=1)
 
 
 def test_get_move():

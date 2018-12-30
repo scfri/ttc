@@ -104,11 +104,6 @@ class Aimee:
 
         player_id = self.get_player_id()
 
-        """
-        board[0][0] == board[1][1] == board[2][2]
-        board[0][2] == board[1][1] == board[3][0]
-        """
-
         if board[0][0] == board[1][1] == player_id:
             return Point(column='c', row=3)
         if board[1][1] == board[2][2] == player_id:
@@ -116,10 +111,10 @@ class Aimee:
         if board[0][0] == board[2][2] == player_id:
             return Point(column='b', row=2)
         if board[0][2] == board[1][1] == player_id:
-            return Point(column='c', row=1)
-        if board[0][2] == board[3][0] == player_id:
+            return Point(column='a', row=3)
+        if board[0][2] == board[2][0] == player_id:
             return Point(column='b', row=2)
-        if board[1][1] == board[3][0] == player_id:
+        if board[1][1] == board[2][0] == player_id:
             return Point(column='a', row=3)
         return None
 

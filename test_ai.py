@@ -217,6 +217,13 @@ def test_find_diagonal_winner():
 
     assert aimee.find_diagonal_winner(solution_board) == Point(column='a', row=1)
 
+    solution_board = []
+    solution_board.append(['O', None, None])
+    solution_board.append([None, 'O', None])
+    solution_board.append([None, None, None])
+
+    assert aimee.find_diagonal_winner(solution_board) == Point(column='c', row=3)
+
 
 def test_get_move():
     """Test if aimee.get_move() alwayas returns a Point"""

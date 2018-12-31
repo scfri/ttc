@@ -1,122 +1,56 @@
 """Simple Tic Tac Toe game written, its called Ttc!"""
 
 import random
-from typing import NamedTuple
+import point
+import aimee
 
 
 BOARD_SIZE = 3
 
 
-class Point(NamedTuple):
-    """To store point of next move"""
-
-    column: str
-    row: int
-
-    def __repr__(self):
-        return str(self.column) + str(self.row)
-
-    def get_column(self) -> int:
-        """Returns column number - 0 indexed"""
-
-        return ord(self.column) - 97
-
-    def get_row(self) -> int:
-        """Returns row number - visual board is 1 indexed, so converts to 0-index"""
-
-        return int(self.row)-1
-
-
-class Aimee:
-    """(AI)mee is the AI class you will play against"""
-
-    # TODO: make her intelligent
-
-    def __init__(self, player_id: str):
-        self.player_id = player_id
-
-    def get_player_id(self) -> str:
-        """returns player representaion (i.e. X or O)"""
-
-        return self.player_id
-
-    def get_move(self, board) -> Point:
-        """get Aimee to return a move"""
-
-        def find_winning_move(board, player_id) -> Point:
-            """Find a winning move, if there is one"""
-
-            horizontal_winner = find_horizontal_winner(board, player_id)
-            vertical_winner = find_vertical_winner(board, player_id)
-            diagonal_winner = find_diagonal_winner(board, player_id)
-
-            if horizontal_winner is not None:
-                return horizontal_winner
-            if vertical_winner is not None:
-                return vertical_winner
-            if diagonal_winner is not None:
-                return diagonal_winner
-            return None
-
-        move_to_make = find_winning_move(board, self.get_player_id())
-
-        if self.get_player_id() == 'X':
-            opponent_id = 'O'
-        else:
-            opponent_id = 'X'
-
-        if move_to_make is None:
-            move_to_make = find_winning_move(board, opponent_id)
-
-        if move_to_make is None:
-            column = chr(random.randint(0, BOARD_SIZE) + 96)
-            row = random.randint(0, BOARD_SIZE)
-            move_to_make = Point(column=column.lower(), row=row)
-
-        return move_to_make
-
-
-def find_horizontal_winner(board, player_id) -> Point:
+def find_horizontal_winner(board, player_id) -> point.Point:
     """Find horizontal winner"""
 
     # TODO: make this work for diff board sizes
     for i, row in enumerate(board):
         if row[0] == row[1] == player_id and row[2] is None:
-            return Point(column='c', row=i+1)
+            return point.Point(column='c', row=i+1)
         if row[1] == row[2] == player_id and row[0] is None:
-            return Point(column='a', row=i+1)
+            return point.Point(column='a', row=i+1)
         if row[0] == row[2] == player_id and row[1] is None:
-            return Point(column='b', row=i+1)
+            return point.Point(column='b', row=i+1)
     return None
 
-def find_vertical_winner(board, player_id) -> Point:
+
+def find_vertical_winner(board, player_id) -> point.Point:
     """Find vertical winner"""
 
     # TODO: make this work for diff board sizes
     for i in range(0, BOARD_SIZE):
         if board[0][i] == board[1][i] == player_id and board[2][i] is None:
-            return Point(column=chr(97+i), row=3)
+            return point.Point(column=chr(97+i), row=3)
         if board[1][i] == board[2][i] == player_id and board[0][i] is None:
-            return Point(column=chr(97+i), row=1)
+            return point.Point(column=chr(97+i), row=1)
         if board[0][i] == board[2][i] == player_id and board[1][i] is None:
-            return Point(column=chr(97+i), row=2)
+            return point.Point(column=chr(97+i), row=2)
     return None
 
-def find_diagonal_winner(board, player_id) -> Point:
+
+def find_diagonal_winner(board, player_id) -> point.Point:
     """Find diagonal winner"""
 
     if board[0][0] == board[1][1] == player_id:
-        return Point(column='c', row=3)
+        return point.Point(column='c', row=3)
     if board[1][1] == board[2][2] == player_id:
-        return Point(column='a', row=1)
+        return point.Point(column='a', row=1)
     if board[0][0] == board[2][2] == player_id:
-        return Point(column='b', row=2)
+        return point.Point(column='b', row=2)
     if board[0][2] == board[1][1] == player_id:
-        return Point(column='a', row=3)
+        return point.Point(column='a', row=3)
     if board[0][2] == board[2][0] == player_id:
-        return Point(column='b', row=2)
+        return point.Point(column='b', row=2)
     if board[1][1] == board[2][0] == player_id:
-        return Point(column='a', row=3)
+        return point.Point(column='a', row=3)
     return None
 
 
@@ -127,7 +61,7 @@ def run_ttc():
     #TODO: dynamically determine what value user wants to be
     current_player_is_user = random.choice([True, False])
     num_valid_moves = 0
-    opponent = Aimee("O")
+    opponent = aimee.Aimee("O")
     is_winner = False
 
     print_board(board)
@@ -182,7 +116,7 @@ def create_board(size):
         print("Invalid board size given")
 
 
-def is_valid_move(board, point: Point) -> bool:
+def is_valid_move(board, point: point.Point) -> bool:
     """determines if move is valid (i.e. there is no point on board yet)"""
 
     try:
@@ -194,7 +128,7 @@ def is_valid_move(board, point: Point) -> bool:
         return False
 
 
-def update_board(board, point: Point, player: str):
+def update_board(board, point: point.Point, player: str):
     """update board to reflect most recent move"""
 
     board[point.get_row()][point.get_column()] = player
@@ -273,7 +207,7 @@ def get_move(current_player):
     except (IndexError, ValueError):
         print("Invalid move! Please try again...")
         return None
-    return Point(column=column.lower(), row=row)
+    return point.Point(column=column.lower(), row=row)
 
 
 def point_is_none(board, column: int, row: int) -> bool:
@@ -286,7 +220,6 @@ def point_is_none(board, column: int, row: int) -> bool:
     except IndexError:
         print("That is an invalid move, please try again")
         return False
-
 
 if __name__ == "__main__":
     run_ttc()

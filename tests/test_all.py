@@ -1,7 +1,7 @@
 """Test suite for Ttc"""
 
 
-from ttc.ttc import *
+from ttc import ttc
 
 
 def test_board_size():

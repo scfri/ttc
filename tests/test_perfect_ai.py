@@ -1,0 +1,3 @@
+"""Test perfect AI algorithm"""
+
+

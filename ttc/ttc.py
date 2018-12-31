@@ -28,7 +28,7 @@ class Point(NamedTuple):
 
 
 class Aimee:
-    """(AI)mee is the AI class you will play againstQ"""
+    """(AI)mee is the AI class you will play against"""
 
     # TODO: make her intelligent
 
@@ -43,7 +43,22 @@ class Aimee:
     def get_move(self, board) -> Point:
         """get Aimee to return a move"""
 
-        move_to_make = self.find_winning_move(board, self.get_player_id())
+        def find_winning_move(board, player_id) -> Point:
+            """Find a winning move, if there is one"""
+
+            horizontal_winner = find_horizontal_winner(board, player_id)
+            vertical_winner = find_vertical_winner(board, player_id)
+            diagonal_winner = find_diagonal_winner(board, player_id)
+
+            if horizontal_winner is not None:
+                return horizontal_winner
+            if vertical_winner is not None:
+                return vertical_winner
+            if diagonal_winner is not None:
+                return diagonal_winner
+            return None
+
+        move_to_make = find_winning_move(board, self.get_player_id())
 
         if self.get_player_id() == 'X':
             opponent_id = 'O'
@@ -51,7 +66,7 @@ class Aimee:
             opponent_id = 'X'
 
         if move_to_make is None:
-            move_to_make = self.find_winning_move(board, opponent_id)
+            move_to_make = find_winning_move(board, opponent_id)
 
         if move_to_make is None:
             column = chr(random.randint(0, BOARD_SIZE) + 96)
@@ -60,63 +75,49 @@ class Aimee:
 
         return move_to_make
 
-    def find_winning_move(self, board, player_id) -> Point:
-        """Find a winning move, if there is one"""
 
-        horizontal_winner = self.find_horizontal_winner(board, player_id)
-        vertical_winner = self.find_vertical_winner(board, player_id)
-        diagonal_winner = self.find_diagonal_winner(board, player_id)
+def find_horizontal_winner(board, player_id) -> Point:
+    """Find horizontal winner"""
 
-        if horizontal_winner is not None:
-            return horizontal_winner
-        if vertical_winner is not None:
-            return vertical_winner
-        if diagonal_winner is not None:
-            return diagonal_winner
-        return None
+    # TODO: make this work for diff board sizes
+    for i, row in enumerate(board):
+        if row[0] == row[1] == player_id and row[2] is None:
+            return Point(column='c', row=i+1)
+        if row[1] == row[2] == player_id and row[0] is None:
+            return Point(column='a', row=i+1)
+        if row[0] == row[2] == player_id and row[1] is None:
+            return Point(column='b', row=i+1)
+    return None
 
-    def find_horizontal_winner(self, board, player_id) -> Point:
-        """Find horizontal winner"""
+def find_vertical_winner(board, player_id) -> Point:
+    """Find vertical winner"""
 
-        # TODO: make this work for diff board sizes
-        for i, row in enumerate(board):
-            if row[0] == row[1] == player_id and row[2] is None:
-                return Point(column='c', row=i+1)
-            if row[1] == row[2] == player_id and row[0] is None:
-                return Point(column='a', row=i+1)
-            if row[0] == row[2] == player_id and row[1] is None:
-                return Point(column='b', row=i+1)
-        return None
+    # TODO: make this work for diff board sizes
+    for i in range(0, BOARD_SIZE):
+        if board[0][i] == board[1][i] == player_id and board[2][i] is None:
+            return Point(column=chr(97+i), row=3)
+        if board[1][i] == board[2][i] == player_id and board[0][i] is None:
+            return Point(column=chr(97+i), row=1)
+        if board[0][i] == board[2][i] == player_id and board[1][i] is None:
+            return Point(column=chr(97+i), row=2)
+    return None
 
-    def find_vertical_winner(self, board, player_id) -> Point:
-        """Find vertical winner"""
+def find_diagonal_winner(board, player_id) -> Point:
+    """Find diagonal winner"""
 
-        # TODO: make this work for diff board sizes
-        for i in range(0, BOARD_SIZE):
-            if board[0][i] == board[1][i] == player_id and board[2][i] is None:
-                return Point(column=chr(97+i), row=3)
-            if board[1][i] == board[2][i] == player_id and board[0][i] is None:
-                return Point(column=chr(97+i), row=1)
-            if board[0][i] == board[2][i] == player_id and board[1][i] is None:
-                return Point(column=chr(97+i), row=2)
-        return None
-
-    def find_diagonal_winner(self, board, player_id) -> Point:
-        """Find diagonal winner"""
-
-        if board[0][0] == board[1][1] == player_id:
-            return Point(column='c', row=3)
-        if board[1][1] == board[2][2] == player_id:
-            return Point(column='a', row=1)
-        if board[0][0] == board[2][2] == player_id:
-            return Point(column='b', row=2)
-        if board[0][2] == board[1][1] == player_id:
-            return Point(column='a', row=3)
-        if board[0][2] == board[2][0] == player_id:
-            return Point(column='b', row=2)
-        if board[1][1] == board[2][0] == player_id:
-            return Point(column='a', row=3)
-        return None
+    if board[0][0] == board[1][1] == player_id:
+        return Point(column='c', row=3)
+    if board[1][1] == board[2][2] == player_id:
+        return Point(column='a', row=1)
+    if board[0][0] == board[2][2] == player_id:
+        return Point(column='b', row=2)
+    if board[0][2] == board[1][1] == player_id:
+        return Point(column='a', row=3)
+    if board[0][2] == board[2][0] == player_id:
+        return Point(column='b', row=2)
+    if board[1][1] == board[2][0] == player_id:
+        return Point(column='a', row=3)
+    return None
 
 
 def run_ttc():

@@ -58,7 +58,7 @@ def run_ttc():
     """run TTC game"""
 
     board = create_board(BOARD_SIZE)
-    #TODO: dynamically determine what value user wants to be
+    # TODO: dynamically determine what value user wants to be
     current_player_is_user = random.choice([True, False])
     num_valid_moves = 0
     opponent = aimee.Aimee("O")
@@ -124,7 +124,7 @@ def is_valid_move(board, point: point.Point) -> bool:
         move_row = point.get_row()
         return point_is_none(board, move_column, move_row)
     except (IndexError, ValueError):
-        print("%s is invalid move" %(point))
+        print("%s is invalid move" % (point))
         return False
 
 
@@ -187,7 +187,7 @@ def print_board(board):
         print('{:^6}'.format(chr(letter)), end="")
     print("")
     for i in board:
-        print("%s|"%(num+1), end="")
+        print("%s|" % (num+1), end="")
         num += 1
         for j in i:
             print('{:^5}'.format(str(j)), end="")
@@ -199,7 +199,7 @@ def print_board(board):
 def get_move(current_player):
     """Get move from player"""
 
-    print("CURRENT PLAYER: %s" %(current_player))
+    print("CURRENT PLAYER: %s" % (current_player))
     move: str = input("Please enter move <column><row>: ")
     try:
         column: str = move[0]
@@ -220,6 +220,7 @@ def point_is_none(board, column: int, row: int) -> bool:
     except IndexError:
         print("That is an invalid move, please try again")
         return False
+
 
 if __name__ == "__main__":
     run_ttc()

@@ -26,6 +26,7 @@ class PerfectAi:
 
         get_tree(board)
 
+
 def get_tree(board):
     """Get tree of all remaining moves"""
 
